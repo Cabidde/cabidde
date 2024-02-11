@@ -50,6 +50,7 @@ Route::post('/atualizar', [CarrinhoController::class, 'atualizaCarrinho'])->name
 Route::get('/limpar', [CarrinhoController::class, 'limparCarrinho'])->name('cliente.limparcarrinho');
 Route::get('/modal/{id}/{quantidade}', [CarrinhoController::class, 'mostrarModal'])->name('cliente.modal');
 
+
 Route::get('/checkout/process', [MercadoPagoController::class, 'approved'])->name('process.checkout');
 
 Route::get('/pedidos', [PedidosController::class, 'pedidosList'])->name('cliente.pedido')->middleware('auth');

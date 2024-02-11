@@ -15,12 +15,12 @@
                 <a class="btn btn-sm" href="#" onclick="voltarParaCidade()">Voltar</a>
             </div>
         @else
-            <div class="col section-1 section-description wow fadeIn">        
+            <div class="col section-1 section-description wow fadeIn">
                 <h3>Meu carrinho</h3>
             </div>
         <table class="table table-bordered table-striped">
             <thead>
-                <tr>                
+                <tr>
                     <th>Produto</th>
                     <th>Preço un.</th>
                     <th>Qnt.</th>
@@ -32,9 +32,9 @@
                     <tr>
                         <td>{{ $item->name }}</td>
                         <td>R$ {{ number_format($item->price, 2, ',', '.') }}</td>
-                        
+
                         {{-- BTN ATUALIZAR --}}
-                        
+
                         <td>
                             <form action="{{ route('cliente.atualizacarrinho') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
@@ -43,15 +43,15 @@
                                 <td>
                                 <button class="btn"><i class="fa-solid fa-pen fa-shake"></i></button>
                             </form>
-                                    
+
                         {{-- BTN DELETAR --}}
-                        
+
                         <form action="{{ route('cliente.removecarrinho') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="id" value="{{ $item->id }}">
                             <button class="btn"><i class="fa-solid fa-trash fa-shake"></i></button>
-                        </form>                        
-                    </td>                                                           
+                        </form>
+                    </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -61,28 +61,12 @@
         <a class="btn" href="{{ route('cliente.limparcarrinho') }}">Limpar carrinho</a>
 
         <div id="wallet_container"></div>
-    </div> 
+    </div>
 </div>
 
 
 {{-- Botao Mercado Pago --}}
-<script src="https://sdk.mercadopago.com/js/v2"></script>
 
-
-<script>
-   
-    const mp = new MercadoPago('TEST-499bcf38-196a-4925-b627-7d9fb914c0ae');
-    const bricksBuilder = mp.bricks();
-  
-    mp.bricks().create("wallet", "wallet_container", {
-        initialization: {
-            preferenceId: "{{ $preferencecliente->id }}",
-            redirectMode: "modal",
-            
-        },
-});
-
-</script>
 @endif
 
 @endsection

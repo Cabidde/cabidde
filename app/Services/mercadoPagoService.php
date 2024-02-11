@@ -1,5 +1,5 @@
 <?php
-
+/***
 use MercadoPago\MercadoPagoConfig;
 use MercadoPago\Resources\Preference;
 use MercadoPago\Client\Preference\PreferenceClient;
@@ -15,7 +15,7 @@ function clienteConfig(){
 
         $cliente = Auth()->user();
         $empresa = $itens->first()->attributes->empresa_id;
-           
+
         $preferenceClient = $client->create([
             "items"=> array(
                 array(
@@ -53,10 +53,10 @@ function clienteConfig(){
                 "zip_code" => $cliente->cep
             ),
             "statement_descriptor" => "empresaID",
-*/
-            
+
+
         ]);
 
-                
+
     return $preferenceClient;
-}
+}*/

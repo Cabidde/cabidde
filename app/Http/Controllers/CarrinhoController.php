@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-include base_path('\app\Services\mercadoPagoService.php');
+//include base_path('\app\Services\mercadoPagoService.php');
 use Illuminate\Http\Request;
 use App\Models\Produtos;
 
@@ -11,17 +11,17 @@ use App\Models\Produtos;
 class CarrinhoController extends Controller
 {
     public function carrinhoLista(){
-        
-        $itens = \Cart::getContent();
-        $preferencecliente = clienteConfig();
 
-        return view('carrinho.carrinho', compact('itens', 'preferencecliente'));
+        $itens = \Cart::getContent();
+        //$preferencecliente = clienteConfig();
+
+        return view('carrinho.carrinho', compact('itens'));
     }
 
-    public function addcarrinho(Request $request){         
-           
+    public function addcarrinho(Request $request){
+
         \Cart::add([
-            'id' => $request->prodId . "-" . $request->corId . "-" . $request->gradeId . "-" . $request->variacao,            
+            'id' => $request->prodId . "-" . $request->corId . "-" . $request->gradeId . "-" . $request->variacao,
             'name' => $request->name,
             'price' => $request->price,
             'quantity' => $request->qnt,
@@ -30,21 +30,21 @@ class CarrinhoController extends Controller
                 'corId' => $request->corId,
                 'corNome' => $request->corNome,
                 'gradeId' =>$request->gradeId,
-                'variacao' => $request->variacao,                
+                'variacao' => $request->variacao,
                 'capa' => $request->capa,
                 'empresa_id' => $request->empresa_id,
             )
         ]);
-               
+
         return redirect()->route('cliente.carrinho');
     }
 
     public function limparEAdicionarAoCarrinho(Request $request){
-       
+
         \Cart::clear();
-           
+
         \Cart::add([
-            'id' => $request->prodId . "-" . $request->corId . "-" . $request->gradeId . "-" . $request->variacao,            
+            'id' => $request->prodId . "-" . $request->corId . "-" . $request->gradeId . "-" . $request->variacao,
             'name' => $request->name,
             'price' => $request->price,
             'quantity' => $request->qnt,
@@ -53,7 +53,7 @@ class CarrinhoController extends Controller
                 'corId' => $request->corId,
                 'corNome' => $request->corNome,
                 'gradeId' =>$request->gradeId,
-                'variacao' => $request->variacao,                
+                'variacao' => $request->variacao,
                 'capa' => $request->capa,
                 'empresa_id' => $request->empresa_id,
             )
@@ -62,7 +62,7 @@ class CarrinhoController extends Controller
         return redirect()->route('cliente.carrinho');
     }
 
-    public function mostrarModal(Request $request){ 
+    public function mostrarModal(Request $request){
        return view('produtos.modal', compact('request'));
     }
 
@@ -78,6 +78,11 @@ class CarrinhoController extends Controller
         return redirect()->route('produtos.lista');
     }
 
+    public function mostrarCheckout(Request $request){
+        return view('checkout');
+    }
+
+
     public function atualizaCarrinho(Request $request){
         \Cart::update($request->id, [
             'quantity' => [
@@ -89,5 +94,5 @@ class CarrinhoController extends Controller
         return redirect()->route('cliente.carrinho');
     }
 
-        
+
 }
